@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Hidden Garden - Digital Library</title>
+    <script type="module">
+        import { PageFlip } from "https://cdn.skypack.dev/page-flip@2.0.7";
+        window.PageFlip = PageFlip;
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #1a3d1a 0%, #2d5a2d 100%);
+            min-height: 100vh;
+            color: #f4e4c1;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            text-align: center;
+            border-bottom: 2px solid #4a7c4a;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+        }
+
+        .book-title-header {
+            font-size: 1.5rem;
+            color: #f4e4c1;
+            margin-bottom: 0.5rem;
+        }
+
+        .book-author-header {
+            font-size: 1rem;
+            color: #8fbc8f;
+        }
+
+        main {
+            margin-top: 120px;
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: calc(100vh - 200px);
+        }
+
+        .book-container {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            height: 600px;
+            margin: 0 auto;
+        }
+
+        .page {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, #f8f6f0 0%, #faf8f2 100%);
+            border: 1px solid #8fbc8f;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            padding: 3rem 2rem;
+            color: #2c1810;
+            font-size: 18pt;
+            line-height: 1.6;
+        }
+
+        .page-content {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+
+        .page-number {
+            position: absolute;
+            bottom: 20px;
+            font-size: 14pt;
+            color: #8b6914;
+            font-style: italic;
+        }
+
+        .page-left .page-number {
+            left: 20px;
+        }
+
+        .page-right .page-number {
+            right: 20px;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 1rem;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 1rem;
+            border-radius: 50px;
+            border: 2px solid #8fbc8f;
+            z-index: 100;
+        }
+
+        .nav-btn {
+            background: #4a7c4a;
+            color: #f4e4c1;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16pt;
+            font-family: 'Georgia', serif;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-btn:hover {
+            background: #8fbc8f;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .nav-btn:disabled {
+            background: #555;
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        .back-to-library {
+            background: #8b0000;
+        }
+
+        .back-to-library:hover {
+            background: #dc143c;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            main {
+                margin-top: 100px;
+                padding: 1rem;
+            }
+
+            .book {
+                height: 500px;
+            }
+
+            .page {
+                width: 100%;
+                padding: 2rem 1.5rem;
+                font-size: 18pt;
+            }
+
+            .page-left {
+                display: none;
+            }
+
+            .page-right {
+                left: 0;
+                right: 0;
+                border-radius: 10px;
+                transform-origin: center;
+            }
+
+            .page-right.flipped-right {
+                transform: translateX(-100%) rotateY(180deg);
+            }
+
+            .page-right .page-number {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .navigation {
+                bottom: 20px;
+                padding: 0.8rem;
+                gap: 0.5rem;
+            }
+
+            .nav-btn {
+                padding: 0.6rem 1rem;
+                font-size: 14pt;
+            }
+
+            .book-title-header {
+                font-size: 1.2rem;
+            }
+
+            .book-author-header {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Loading animation */
+        @keyframes pageFlip {
+            0% { transform: rotateY(0deg); }
+            100% { transform: rotateY(-180deg); }
+        }
+
+        .flipping {
+            animation: pageFlip 1s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 class="book-title-header">The Hidden Garden</h1>
+        <p class="book-author-header">by E. Brown</p>
+    </header>
+
+    <main>
+        <div class="book-container">
+            <div id="book" style="width: 100%; height: 100%;">
+                <div class="page">
+                    <div class="page-content page-left">
+                        <p>Beyond the ancient stone wall, where ivy crept like whispered secrets, there lay a garden forgotten by time. Lily had discovered it quite by accident while chasing a butterfly that danced with impossible colors.</p>
+                        <p>The gate was covered in moss, its ironwork twisted into patterns of vines and flowers that seemed to move when viewed from the corner of one's eye. A single silver key hung from a nearby branch, waiting patiently.</p>
+                        <p>As the gate creaked open, Lily found herself in a place where flowers sang soft melodies and trees bore fruits that tasted of childhood memories. The air itself seemed to sparkle with magic.</p>
+                        <p>At the center of the garden stood a fountain, its waters flowing upward instead of down, catching the light of a sun that existed only within this hidden sanctuary.</p>
+                        <span class="page-number">1</span>
+                    </div>
+                </div>
+                <div class="page">
+                    <div class="page-content page-right">
+                        <p>The garden's guardian appeared between the roses and lilies, neither human nor entirely spirit, but something wonderfully in between. Her eyes held the wisdom of centuries and the sparkle of starlight.</p>
+                        <p>"Welcome, child of the outer world," she said, her voice like wind chimes in a gentle breeze. "You have found what many have sought and few have been worthy to discover."</p>
+                        <p>She explained that this garden was a bridge between worlds, where dreams took root and grew into reality, where every flower represented a hope that someone had dared to nurture.</p>
+                        <p>Lily learned that she had been chosen not by chance, but because her heart still believed in the impossible, because she had never stopped listening to the whispers of magic.</p>
+                        <span class="page-number">2</span>
+                    </div>
+                </div>
+                <div class="page">
+                    <div class="page-content page-left">
+                        <p>Each flower in the garden had a story to tell. The moon-petal roses glowed softly at night, absorbing starlight and releasing it as dreams for sleeping children across the world.</p>
+                        <p>The whispering lilies carried messages between loved ones who were separated by distance or time, their petals rustling with unspoken words and unfelt emotions.</p>
+                        <p>Memory-berries grew on bushes that changed color with each passing season, each berry containing a perfect moment preserved for those who needed to remember joy in dark times.</p>
+                        <p>The guardian taught Lily to tend these magical plants, showing her how tears of sadness could water the hope-flowers, making them bloom brighter than ever before.</p>
+                        <span class="page-number">3</span>
+                    </div>
+                </div>
+                <div class="page">
+                    <div class="page-content page-right">
+                        <p>But the garden was fading. The outer world had grown too cynical, too dismissive of magic, and the bridge between worlds was growing weak. Fewer people believed in impossible things anymore.</p>
+                        <p>Lily was given a choice: return to her world and forget, or become a keeper of the garden, helping to restore the connection between magic and reality.</p>
+                        <p>She accepted the responsibility with a heart full of wonder, knowing that this meant she would be able to help others find their own hidden gardens, their own paths to magic.</p>
+                        <p>The guardian gave her a seed, explaining that it contained an entire garden within it, one that would grow wherever it was planted by someone who still believed in the extraordinary.</p>
+                        <span class="page-number">4</span>
+                    </div>
+                </div>
+                <div class="page">
+                    <div class="page-content page-left">
+                        <p>Years passed, and Lily became a guardian herself, guiding other worthy souls to the garden while tending to its magical needs. She learned that keeping wonder alive was the most important work of all.</p>
+                        <p>The garden began to flourish once more, its magic spreading slowly back into the world through the dreams and hearts of those who learned to believe again.</p>
+                        <p>Children started seeing impossible butterflies again, adults found themselves noticing the extra sparkle in raindrops, and somewhere, just at the edge of vision, gates began to appear for those worthy to find them.</p>
+                        <p>Lily understood that the hidden garden had never truly been lost – it had merely been waiting for enough hearts to remember that magic is real, waiting for someone to tend the seeds of wonder.</p>
+                        <span class="page-number">5</span>
+                    </div>
+                </div>
+                <div class="page">
+                    <div class="page-content page-right">
+                        <p>The greatest lesson the garden taught was that magic isn't found in grand spells or miraculous events, but in the small moments: the way dew catches the morning light, the persistence of a flower growing through concrete, the courage to believe when others scoff.</p>
+                        <p>Lily planted seeds of wonder everywhere she went, leaving trails of impossible butterflies and whispers of dreams that would one day bloom into gardens for others to find.</p>
+                        <p>The garden expanded beyond its walls, becoming a network of magical spaces scattered across the world, each tended by those who had learned that believing in the impossible was the most practical thing one could do.</p>
+                        <p>And somewhere, just beyond the edge of ordinary sight, a gate stands waiting, covered in ivy, with a silver key hanging nearby, ready for the next worthy heart to discover what has been there all along.</p>
+                        <span class="page-number">6</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <nav class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="previousPage()">← Previous</button>
+        <button class="nav-btn back-to-library" onclick="backToLibrary()">📚 Library</button>
+        <button class="nav-btn" id="nextBtn" onclick="nextPage()">Next →</button>
+    </nav>
+
+    <script type="module">
+        import { PageFlip } from "https://cdn.skypack.dev/page-flip@2.0.7";
+
+        let pageFlip;
+
+        // Initialize PageFlip when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            const bookElement = document.getElementById('book');
+            const isMobile = window.innerWidth <= 768;
+
+            pageFlip = new PageFlip(bookElement, {
+                width: isMobile ? 400 : 900,
+                height: 600,
+                size: isMobile ? 'stretch' : 'fixed',
+                minWidth: 300,
+                maxWidth: 1200,
+                minHeight: 400,
+                maxHeight: 800,
+                showCover: false,
+                mobileScrollSupport: true,
+                flipDuration: 800,
+                useMouseEvents: true
+            });
+
+            // Load pages
+            pageFlip.loadFromHTML(document.querySelectorAll('.page'));
+
+            // Update button states
+            updateButtonStates();
+
+            // Event listeners for page flip
+            pageFlip.on('flip', (e) => {
+                updateButtonStates();
+            });
+
+            // Handle window resize
+            window.addEventListener('resize', () => {
+                const newMobile = window.innerWidth <= 768;
+                if (newMobile !== isMobile) {
+                    location.reload(); // Reload to reinitialize with correct settings
+                }
+            });
+        });
+
+        function nextPage() {
+            if (pageFlip) {
+                pageFlip.flipNext();
+            }
+        }
+
+        function previousPage() {
+            if (pageFlip) {
+                pageFlip.flipPrev();
+            }
+        }
+
+        function backToLibrary() {
+            window.location.href = '../index.html';
+        }
+
+        function updateButtonStates() {
+            if (pageFlip) {
+                const pageCount = pageFlip.getPageCount();
+                const currentPageIndex = pageFlip.getCurrentPageIndex();
+
+                document.getElementById('prevBtn').disabled = currentPageIndex === 0;
+                document.getElementById('nextBtn').disabled = currentPageIndex >= pageCount - 1;
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') nextPage();
+            if (e.key === 'ArrowLeft') previousPage();
+            if (e.key === 'Escape') backToLibrary();
+        });
+
+        // Make functions available globally for onclick handlers
+        window.nextPage = nextPage;
+        window.previousPage = previousPage;
+        window.backToLibrary = backToLibrary;
+    </script>
+</body>
+</html>

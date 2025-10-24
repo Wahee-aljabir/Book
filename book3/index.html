@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Journey to Stars - Digital Library</title>
+    <script type="module">
+        import { PageFlip } from "https://cdn.skypack.dev/page-flip@2.0.7";
+        window.PageFlip = PageFlip;
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #2c1810 0%, #4a2c1a 100%);
+            min-height: 100vh;
+            color: #f4e4c1;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            text-align: center;
+            border-bottom: 2px solid #8b6914;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+        }
+
+        .book-title-header {
+            font-size: 1.5rem;
+            color: #f4e4c1;
+            margin-bottom: 0.5rem;
+        }
+
+        .book-author-header {
+            font-size: 1rem;
+            color: #d4af37;
+        }
+
+        main {
+            margin-top: 120px;
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: calc(100vh - 200px);
+        }
+
+        .book-container {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            height: 600px;
+            margin: 0 auto;
+        }
+
+        .page {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, #f8f6f0 0%, #faf8f2 100%);
+            border: 1px solid #d4af37;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            padding: 3rem 2rem;
+            color: #2c1810;
+            font-size: 18pt;
+            line-height: 1.6;
+        }
+
+        .page-content {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+
+        .page-number {
+            position: absolute;
+            bottom: 20px;
+            font-size: 14pt;
+            color: #8b6914;
+            font-style: italic;
+        }
+
+        .page-left .page-number {
+            left: 20px;
+        }
+
+        .page-right .page-number {
+            right: 20px;
+        }
+
+    
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 1rem;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 1rem;
+            border-radius: 50px;
+            border: 2px solid #d4af37;
+            z-index: 100;
+        }
+
+        .nav-btn {
+            background: #8b6914;
+            color: #f4e4c1;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16pt;
+            font-family: 'Georgia', serif;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-btn:hover {
+            background: #d4af37;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .nav-btn:disabled {
+            background: #555;
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        .back-to-library {
+            background: #8b0000;
+        }
+
+        .back-to-library:hover {
+            background: #dc143c;
+        }
+
+        @media (max-width: 768px) {
+            main { margin-top: 100px; padding: 1rem; }
+            .book { height: 500px; }
+            .page { width: 100%; padding: 2rem 1.5rem; font-size: 18pt; }
+            .page-left { display: none; }
+            .page-right { left: 0; right: 0; border-radius: 10px; transform-origin: center; }
+            .page-right.flipped-right { transform: translateX(-100%) rotateY(180deg); }
+            .page-right .page-number { left: 50%; transform: translateX(-50%); }
+            .navigation { bottom: 20px; padding: 0.8rem; gap: 0.5rem; }
+            .nav-btn { padding: 0.6rem 1rem; font-size: 14pt; }
+            .book-title-header { font-size: 1.2rem; }
+            .book-author-header { font-size: 0.9rem; }
+        }
+
+        /* Loading animation */
+        @keyframes pageFlip {
+            0% { transform: rotateY(0deg); }
+            100% { transform: rotateY(-180deg); }
+        }
+
+        .flipping {
+            animation: pageFlip 1s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 class="book-title-header">Journey to Stars</h1>
+        <p class="book-author-header">by S. Williams</p>
+    </header>
+
+    <main>
+        <div class="book-container">
+            <div id="book" style="width: 100%; height: 100%;">
+                <div class="page">
+                    <div class="page-content page-left">
+                        <p>Captain Elena Rodriguez stood on the bridge of the starship Odyssey, her eyes fixed on the holographic display showing the distant destination that had been humanity's dream for generations – Proxima Centauri b.</p>
+                        <p>For three hundred years, humans had dreamed of reaching the stars, and now, with the development of quantum drive technology, that dream was finally becoming a reality for the chosen few who would carry humanity's hopes into the cosmos.</p>
+                        <p>The journey would take ten years Earth time, though only three years would pass for the crew due to relativistic effects, a time dilation that made possible what had once been considered impossible.</p>
+                        <p>As the final countdown began, Elena thought of the thousands of scientists, engineers, and dreamers who had made this moment possible, their legacy now carried forward by the small crew of brave explorers about to venture into the unknown.</p>
+                        <span class="page-number">1</span>
+                    </div>
+                </div>
+                <div class="page">
+                    <div class="page-content page-right">
+                        <p>The quantum drive engaged with a silent hum that resonated through the ship's hull, and suddenly the stars outside the viewport stretched into streaks of light as the Odyssey slipped into the space between spaces.</p>
+                        <p>In this quantum realm, the normal laws of physics seemed to bend and warp, creating vistas of impossible beauty that no human had ever witnessed – nebulae that pulsed with colors beyond the visible spectrum.</p>
+                        <p>Dr. Marcus Chen, the ship's xenobiologist, worked tirelessly in his laboratory, preparing for the moment when they would finally encounter alien life, whether microbial or intelligent, that would forever change humanity's understanding of its place in the universe.</p>
+                        <p>Meanwhile, Commander James Nakamura monitored the ship's systems with an intensity born of years of training, ensuring that the delicate balance of quantum entanglement that kept them traveling faster than light remained stable.</p>
+                        <span class="page-number">2</span>
+                    </div>
+                </div>
+                <div class="page">
+                    <div class="page-content page-left">
+                        <p>Six months into their journey, the Odyssey encountered something unexpected – a massive artificial structure floating in the void between star systems, ancient beyond comprehension and still powered by some unknown energy source.</p>
+                        <p>The structure was a ringworld, millions of miles in diameter, with an inner surface that had clearly been terraformed to support life, though whatever civilization had built it had vanished long ago.</p>
+                        <p>Against protocol, Elena decided to investigate, knowing that this discovery alone would make their journey historic, even if they never reached their intended destination.</p>
+                        <p>As they approached the ringworld, the ship's sensors detected automated systems still functioning, maintaining the atmosphere and gravity of the abandoned world, waiting for someone to finally arrive and claim the inheritance left behind by its mysterious creators.</p>
+                        <span class="page-number">3</span>
+                    </div>
+                </div>
+                <div class="page">
+                    <div class="page-content page-right">
+                        <p>The away team that ventured onto the ringworld found cities of impossible architecture, buildings that seemed to grow from the ground itself like organic structures, and technology that operated on principles humans had yet to discover.</p>
+                        <p>In the central repository of knowledge, they found records that revealed the truth – the ringworld was a library, a preservation of knowledge from countless civilizations that had faced extinction.</p>
+                        <p>The builders, calling themselves the Archivists, had traveled the galaxy for millions of years, collecting the wisdom, art, and science of species that would otherwise have been lost to time.</p>
+                        <p>Humanity, it turned out, was not alone in the universe – they were simply the latest in a long line of species to reach for the stars, and now they had inherited the responsibility to continue the work of preserving galactic knowledge.</p>
+                        <span class="page-number">4</span>
+                    </div>
+                </div>
+                <div class="page">
+                    <div class="page-content page-left">
+                        <p>The discovery changed everything about the mission. Instead of simply colonizing a new world, the crew of the Odyssey now had access to technologies that could solve Earth's most pressing problems – clean energy, medical advances, and even the secrets to extending human lifespan.</p>
+                        <p>But with this knowledge came a terrible choice – do they return to Earth with these gifts, potentially disrupting human society in ways that could lead to chaos, or do they continue their original mission?</p>
+                        <p>Elena called a meeting of the crew, knowing that whatever decision they made would affect not only their own futures but the future of all humanity.</p>
+                        <p>After days of debate, they reached a consensus – they would complete their original mission, establishing a colony on Proxima Centauri b, but they would also serve as guardians of the Archivists' knowledge, releasing it to humanity gradually and responsibly.</p>
+                        <span class="page-number">5</span>
+                    </div>
+                </div>
+                <div class="page">
+                    <div class="page-content page-right">
+                        <p>When the Odyssey finally arrived at Proxima Centauri b, they found not just a habitable world, but evidence that the Archivists had been there before – terraforming equipment that had been preparing the planet for thousands of years.</p>
+                        <p>The first human colony on another world was established with technology that seemed almost magical to the colonists who would follow, creating a society that would be the bridge between Earth's past and humanity's future among the stars.</p>
+                        <p>Elena Rodriguez, now Governor Elena Rodriguez of Proxima Colony, looked up at the alien sky and knew that this was not an end but a beginning – the start of humanity's true journey to become a spacefaring civilization.</p>
+                        <p>The Odyssey's return to Earth would bring not just news of their success, but the carefully guarded knowledge that would elevate humanity to the next level of its cosmic evolution, ensuring that the dream of reaching for the stars would never end.</p>
+                        <span class="page-number">6</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <nav class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="previousPage()">← Previous</button>
+        <button class="nav-btn back-to-library" onclick="backToLibrary()">📚 Library</button>
+        <button class="nav-btn" id="nextBtn" onclick="nextPage()">Next →</button>
+    </nav>
+
+    <script type="module">
+        import { PageFlip } from "https://cdn.skypack.dev/page-flip@2.0.7";
+
+        let pageFlip;
+
+        // Initialize PageFlip when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            const bookElement = document.getElementById('book');
+            const isMobile = window.innerWidth <= 768;
+
+            pageFlip = new PageFlip(bookElement, {
+                width: isMobile ? 400 : 900,
+                height: 600,
+                size: isMobile ? 'stretch' : 'fixed',
+                minWidth: 300,
+                maxWidth: 1200,
+                minHeight: 400,
+                maxHeight: 800,
+                showCover: false,
+                mobileScrollSupport: true,
+                flipDuration: 800,
+                useMouseEvents: true
+            });
+
+            // Load pages
+            pageFlip.loadFromHTML(document.querySelectorAll('.page'));
+
+            // Update button states
+            updateButtonStates();
+
+            // Event listeners for page flip
+            pageFlip.on('flip', (e) => {
+                updateButtonStates();
+            });
+
+            // Handle window resize
+            window.addEventListener('resize', () => {
+                const newMobile = window.innerWidth <= 768;
+                if (newMobile !== isMobile) {
+                    location.reload(); // Reload to reinitialize with correct settings
+                }
+            });
+        });
+
+        function nextPage() {
+            if (pageFlip) {
+                pageFlip.flipNext();
+            }
+        }
+
+        function previousPage() {
+            if (pageFlip) {
+                pageFlip.flipPrev();
+            }
+        }
+
+        function backToLibrary() {
+            window.location.href = '../index.html';
+        }
+
+        function updateButtonStates() {
+            if (pageFlip) {
+                const pageCount = pageFlip.getPageCount();
+                const currentPageIndex = pageFlip.getCurrentPageIndex();
+
+                document.getElementById('prevBtn').disabled = currentPageIndex === 0;
+                document.getElementById('nextBtn').disabled = currentPageIndex >= pageCount - 1;
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') nextPage();
+            if (e.key === 'ArrowLeft') previousPage();
+            if (e.key === 'Escape') backToLibrary();
+        });
+
+        // Make functions available globally for onclick handlers
+        window.nextPage = nextPage;
+        window.previousPage = previousPage;
+        window.backToLibrary = backToLibrary;
+    </script>
+</body>
+</html>

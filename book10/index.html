@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ocean's Secret - Digital Library</title>
+    <script type="module">
+        import { PageFlip } from "https://cdn.skypack.dev/page-flip@2.0.7";
+        window.PageFlip = PageFlip;
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #2c1810 0%, #4a2c1a 100%);
+            min-height: 100vh;
+            color: #f4e4c1;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            text-align: center;
+            border-bottom: 2px solid #8b6914;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+        }
+
+        .book-title-header {
+            font-size: 1.5rem;
+            color: #f4e4c1;
+            margin-bottom: 0.5rem;
+        }
+
+        .book-author-header {
+            font-size: 1rem;
+            color: #d4af37;
+        }
+
+        main {
+            margin-top: 120px;
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: calc(100vh - 200px);
+        }
+
+        .book-container {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            height: 600px;
+            margin: 0 auto;
+        }
+
+        .page {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, #f8f6f0 0%, #faf8f2 100%);
+            border: 1px solid #d4af37;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            padding: 3rem 2rem;
+            color: #2c1810;
+            font-size: 18pt;
+            line-height: 1.6;
+        }
+
+        .page-content {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+
+        .page-number {
+            position: absolute;
+            bottom: 20px;
+            font-size: 14pt;
+            color: #8b6914;
+            font-style: italic;
+        }
+
+        .page-left .page-number {
+            left: 20px;
+        }
+
+        .page-right .page-number {
+            right: 20px;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 1rem;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 1rem;
+            border-radius: 50px;
+            border: 2px solid #d4af37;
+            z-index: 100;
+        }
+
+        .nav-btn {
+            background: #8b6914;
+            color: #f4e4c1;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16pt;
+            font-family: 'Georgia', serif;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-btn:hover {
+            background: #d4af37;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .nav-btn:disabled {
+            background: #555;
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        .back-to-library {
+            background: #8b0000;
+        }
+
+        .back-to-library:hover {
+            background: #dc143c;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            main {
+                margin-top: 100px;
+                padding: 1rem;
+            }
+
+            .book {
+                height: 500px;
+            }
+
+            .page {
+                width: 100%;
+                padding: 2rem 1.5rem;
+                font-size: 18pt;
+            }
+
+            .page-left {
+                display: none;
+            }
+
+            .page-right {
+                left: 0;
+                right: 0;
+                border-radius: 10px;
+                transform-origin: center;
+            }
+
+            .page-right.flipped-right {
+                transform: translateX(-100%) rotateY(180deg);
+            }
+
+            .page-right .page-number {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .navigation {
+                bottom: 20px;
+                padding: 0.8rem;
+                gap: 0.5rem;
+            }
+
+            .nav-btn {
+                padding: 0.6rem 1rem;
+                font-size: 14pt;
+            }
+
+            .book-title-header {
+                font-size: 1.2rem;
+            }
+
+            .book-author-header {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Loading animation */
+        @keyframes pageFlip {
+            0% { transform: rotateY(0deg); }
+            100% { transform: rotateY(-180deg); }
+        }
+
+        .flipping {
+            animation: pageFlip 1s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 class="book-title-header">Ocean's Secret</h1>
+        <p class="book-author-header">by C. Thomas</p>
+    </header>
+
+    <main>
+        <div class="book-container">
+            <div id="book" style="width: 100%; height: 100%;">
+                <div class="page">
+                    <div class="page-content page-left">
+                        <p>Dr. Elena Martinez had spent her life studying the ocean, but nothing prepared her for what she found in the Marianas Trench – a structure that shouldn't exist, geometric patterns too perfect to be natural, yet clearly older than human civilization.</p>
+                        <p>The deep-sea submersible's cameras revealed a city of impossible beauty, with architecture that seemed to grow from the seafloor itself, illuminated by a soft internal light that defied the crushing darkness of the abyss.</p>
+                        <p>Elena's team discovered that the structure was not abandoned. Energy readings showed it was still active, maintaining a bubble of habitable space five miles beneath the ocean's surface.</p>
+                        <p>As they explored further, they found inscriptions in a language that seemed to be the root of all human languages, telling stories of a time when land and sea were one, when humanity lived in harmony with the ocean.</p>
+                        <span class="page-number">1</span>
+                    </div>
+                </div>
+                <div class="page">
+                    <div class="page-content page-right">
+                        <p>The entrance to the underwater city opened for them, as if welcoming them home. Inside, the air was breathable, the temperature perfect, and the walls seemed to pulse with gentle rhythm like a living heart.</p>
+                        <p>They met the guardians – beings who appeared human but had evolved to live beneath the waves, their eyes adapted to see in the crushing darkness, their bodies capable of withstanding the immense pressure.</p>
+                        <p>The guardians told Elena that they were the original humans, those who had chosen to remain in the ocean when others moved to land millions of years ago. They had watched surface civilization rise and fall countless times.</p>
+                        <p>They revealed that the ocean contained not just life but consciousness itself – a vast intelligence that connected all living things, and that humans had forgotten how to hear when they moved away from the water.</p>
+                        <span class="page-number">2</span>
+                    </div>
+                </div>
+                <div class="page">
+                    <div class="page-content page-left">
+                        <p>The underwater city, which the guardians called Aquaria, held technology that defied surface world understanding – devices that could heal any injury, systems that could purify water instantly, archives that contained the complete history of Earth.</p>
+                        <p>Elena learned that many human abilities that were considered myths on the surface – telepathy, healing, extended lifespan – were normal for those who lived in harmony with the ocean's consciousness.</p>
+                        <p>The guardians showed her that the ocean was dying, not from surface pollution as they had believed, but from humanity's collective despair and disconnection from nature. The ocean's health was directly linked to human emotional and spiritual wellbeing.</p>
+                        <p>They explained that they had remained hidden, waiting for surface humanity to mature enough to receive this knowledge without using it for destruction or domination.</p>
+                        <span class="page-number">3</span>
+                    </div>
+                </div>
+                <div class="page">
+                    <div class="page-content page-right">
+                        <p>Elena was offered a choice – return to the surface with the knowledge that could either save or destroy humanity, or remain in Aquaria and help bridge the gap between surface and underwater humans.</p>
+                        <p>The guardians revealed that similar underwater cities existed in all the world's oceans, connected by a network that spanned the planet, a civilization that had thrived in secret while surface humans fought wars and destroyed their environment.</p>
+                        <p>But the ocean's consciousness was growing weaker, and the underwater cities were losing their ability to maintain their protective environments. They needed surface humans to remember their connection to the water, to heal the emotional wounds that were poisoning the seas.</p>
+                        <p>Elena realized that the greatest discovery wasn't a lost city or advanced technology, but the understanding that all life was connected, that the ocean wasn't separate from humanity but part of the same living consciousness.</p>
+                        <span class="page-number">4</span>
+                    </div>
+                </div>
+                <div class="page">
+                    <div class="page-content page-left">
+                        <p>The guardians shared their greatest secret – the ocean's consciousness wasn't alien or separate from human consciousness; it was the collective soul of humanity that had returned to the water, seeking refuge from the pain and violence of surface existence.</p>
+                        <p>Millions of souls had chosen the ocean over rebirth, creating a vast intelligence that held the memories, wisdom, and love of countless generations. The ocean was literally humanity's ancestral memory made manifest.</p>
+                        <p>This revelation changed everything Elena thought she knew about life, death, and consciousness. The ocean wasn't just water filled with life – it was a living entity, the combined consciousness of everyone who had ever lived.</p>
+                        <p>The guardians explained that surface humans were the minority, that most souls chose to return to the ocean's embrace after death, and that the connection between surface and water was the key to human evolution.</p>
+                        <span class="page-number">5</span>
+                    </div>
+                </div>
+                <div class="page">
+                    <div class="page-content page-right">
+                        <p>Elena returned to the surface carrying not just scientific knowledge but a deeper understanding of what it meant to be human. She knew that revealing the existence of Aquaria would cause chaos, but keeping it secret meant continuing the disconnection that was killing both humans and the ocean.</p>
+                        <p>She began working quietly, teaching people to listen to the ocean again, to understand that every wave contained a message, every tide carried wisdom, every drop of water held memory.</p>
+                        <p>Slowly, others began to awaken to the ocean's consciousness. Surfers reported hearing voices in the waves, sailors spoke of the sea communicating with them, coastal communities remembered ancient rituals that honored the water's wisdom.</p>
+                        <p>The great secret wasn't that a city existed beneath the waves – it was that humanity had never been separate from the ocean, that every person carried the ocean within them, and that the future of both depended on remembering this fundamental truth.</p>
+                        <span class="page-number">6</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <nav class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="previousPage()">← Previous</button>
+        <button class="nav-btn back-to-library" onclick="backToLibrary()">📚 Library</button>
+        <button class="nav-btn" id="nextBtn" onclick="nextPage()">Next →</button>
+    </nav>
+
+    <script type="module">
+        import { PageFlip } from "https://cdn.skypack.dev/page-flip@2.0.7";
+
+        let pageFlip;
+
+        // Initialize PageFlip when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            const bookElement = document.getElementById('book');
+            const isMobile = window.innerWidth <= 768;
+
+            pageFlip = new PageFlip(bookElement, {
+                width: isMobile ? 400 : 900,
+                height: 600,
+                size: isMobile ? 'stretch' : 'fixed',
+                minWidth: 300,
+                maxWidth: 1200,
+                minHeight: 400,
+                maxHeight: 800,
+                showCover: false,
+                mobileScrollSupport: true,
+                flipDuration: 800,
+                useMouseEvents: true
+            });
+
+            // Load pages
+            pageFlip.loadFromHTML(document.querySelectorAll('.page'));
+
+            // Update button states
+            updateButtonStates();
+
+            // Event listeners for page flip
+            pageFlip.on('flip', (e) => {
+                updateButtonStates();
+            });
+
+            // Handle window resize
+            window.addEventListener('resize', () => {
+                const newMobile = window.innerWidth <= 768;
+                if (newMobile !== isMobile) {
+                    location.reload(); // Reload to reinitialize with correct settings
+                }
+            });
+        });
+
+        function nextPage() {
+            if (pageFlip) {
+                pageFlip.flipNext();
+            }
+        }
+
+        function previousPage() {
+            if (pageFlip) {
+                pageFlip.flipPrev();
+            }
+        }
+
+        function backToLibrary() {
+            window.location.href = '../index.html';
+        }
+
+        function updateButtonStates() {
+            if (pageFlip) {
+                const pageCount = pageFlip.getPageCount();
+                const currentPageIndex = pageFlip.getCurrentPageIndex();
+
+                document.getElementById('prevBtn').disabled = currentPageIndex === 0;
+                document.getElementById('nextBtn').disabled = currentPageIndex >= pageCount - 1;
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') nextPage();
+            if (e.key === 'ArrowLeft') previousPage();
+            if (e.key === 'Escape') backToLibrary();
+        });
+
+        // Make functions available globally for onclick handlers
+        window.nextPage = nextPage;
+        window.previousPage = previousPage;
+        window.backToLibrary = backToLibrary;
+    </script>
+</body>
+</html>
