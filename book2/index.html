@@ -148,18 +148,22 @@
         /* Mobile Responsive */
         @media (max-width: 768px) {
             main {
-                margin-top: 100px;
-                padding: 1rem;
+                margin-top: 80px;
+                padding: 0.5rem;
             }
 
-            .book {
-                height: 500px;
+            .book-container {
+                width: 100%;
+                height: 70vh;
+                min-height: 400px;
+                max-height: 600px;
             }
 
             .page {
                 width: 100%;
-                padding: 2rem 1.5rem;
-                font-size: 18pt;
+                padding: 1.5rem 1rem;
+                font-size: 16pt;
+                line-height: 1.5;
             }
 
             .page-left {
@@ -183,22 +187,103 @@
             }
 
             .navigation {
-                bottom: 20px;
-                padding: 0.8rem;
-                gap: 0.5rem;
+                bottom: 15px;
+                padding: 0.6rem;
+                gap: 0.3rem;
+                flex-wrap: wrap;
+                justify-content: center;
             }
 
             .nav-btn {
-                padding: 0.6rem 1rem;
-                font-size: 14pt;
+                padding: 0.5rem 0.8rem;
+                font-size: 12pt;
+                min-width: 60px;
+                touch-action: manipulation;
             }
 
             .book-title-header {
-                font-size: 1.2rem;
+                font-size: 1.1rem;
             }
 
             .book-author-header {
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            main {
+                margin-top: 70px;
+                padding: 0.25rem;
+            }
+
+            .book-container {
+                height: 65vh;
+                min-height: 350px;
+                max-height: 500px;
+            }
+
+            .page {
+                padding: 1rem 0.75rem;
+                font-size: 14pt;
+                line-height: 1.4;
+            }
+
+            .page-number {
+                font-size: 12pt;
+                bottom: 15px;
+            }
+
+            .navigation {
+                bottom: 10px;
+                padding: 0.5rem;
+                gap: 0.2rem;
+            }
+
+            .nav-btn {
+                padding: 0.4rem 0.6rem;
+                font-size: 11pt;
+                min-width: 50px;
+            }
+
+            .book-title-header {
+                font-size: 1rem;
+            }
+
+            .book-author-header {
+                font-size: 0.75rem;
+            }
+        }
+
+        @media (max-width: 320px) {
+            .book-container {
+                height: 60vh;
+                min-height: 300px;
+                max-height: 450px;
+            }
+
+            .page {
+                padding: 0.75rem 0.5rem;
+                font-size: 12pt;
+                line-height: 1.3;
+            }
+
+            .navigation {
+                bottom: 5px;
+                padding: 0.4rem;
+            }
+
+            .nav-btn {
+                padding: 0.3rem 0.5rem;
+                font-size: 10pt;
+                min-width: 45px;
+            }
+
+            .book-title-header {
                 font-size: 0.9rem;
+            }
+
+            .book-author-header {
+                font-size: 0.7rem;
             }
         }
 
@@ -297,8 +382,8 @@
             const isMobile = window.innerWidth <= 768;
 
             pageFlip = new PageFlip(bookElement, {
-                width: isMobile ? 400 : 900,
-                height: 600,
+                width: isMobile ? Math.min(window.innerWidth * 0.9, 400) : 900,
+                height: isMobile ? Math.min(window.innerHeight * 0.6, 500) : 600,
                 size: isMobile ? 'stretch' : 'fixed',
                 minWidth: 300,
                 maxWidth: 1200,

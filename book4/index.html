@@ -148,18 +148,22 @@
         /* Mobile Responsive */
         @media (max-width: 768px) {
             main {
-                margin-top: 100px;
-                padding: 1rem;
+                margin-top: 80px;
+                padding: 0.5rem;
             }
 
-            .book {
-                height: 500px;
+            .book-container {
+                width: 100%;
+                height: 70vh;
+                min-height: 400px;
+                max-height: 600px;
             }
 
             .page {
                 width: 100%;
-                padding: 2rem 1.5rem;
-                font-size: 18pt;
+                padding: 1.5rem 1rem;
+                font-size: 16pt;
+                line-height: 1.5;
             }
 
             .page-left {
@@ -183,22 +187,103 @@
             }
 
             .navigation {
-                bottom: 20px;
-                padding: 0.8rem;
-                gap: 0.5rem;
+                bottom: 15px;
+                padding: 0.6rem;
+                gap: 0.3rem;
+                flex-wrap: wrap;
+                justify-content: center;
             }
 
             .nav-btn {
-                padding: 0.6rem 1rem;
-                font-size: 14pt;
+                padding: 0.5rem 0.8rem;
+                font-size: 12pt;
+                min-width: 60px;
+                touch-action: manipulation;
             }
 
             .book-title-header {
-                font-size: 1.2rem;
+                font-size: 1.1rem;
             }
 
             .book-author-header {
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            main {
+                margin-top: 70px;
+                padding: 0.25rem;
+            }
+
+            .book-container {
+                height: 65vh;
+                min-height: 350px;
+                max-height: 500px;
+            }
+
+            .page {
+                padding: 1rem 0.75rem;
+                font-size: 14pt;
+                line-height: 1.4;
+            }
+
+            .page-number {
+                font-size: 12pt;
+                bottom: 15px;
+            }
+
+            .navigation {
+                bottom: 10px;
+                padding: 0.5rem;
+                gap: 0.2rem;
+            }
+
+            .nav-btn {
+                padding: 0.4rem 0.6rem;
+                font-size: 11pt;
+                min-width: 50px;
+            }
+
+            .book-title-header {
+                font-size: 1rem;
+            }
+
+            .book-author-header {
+                font-size: 0.75rem;
+            }
+        }
+
+        @media (max-width: 320px) {
+            .book-container {
+                height: 60vh;
+                min-height: 300px;
+                max-height: 450px;
+            }
+
+            .page {
+                padding: 0.75rem 0.5rem;
+                font-size: 12pt;
+                line-height: 1.3;
+            }
+
+            .navigation {
+                bottom: 5px;
+                padding: 0.4rem;
+            }
+
+            .nav-btn {
+                padding: 0.3rem 0.5rem;
+                font-size: 10pt;
+                min-width: 45px;
+            }
+
+            .book-title-header {
                 font-size: 0.9rem;
+            }
+
+            .book-author-header {
+                font-size: 0.7rem;
             }
         }
 
@@ -245,7 +330,7 @@
                         <p>Each flower in the garden had a story to tell. The moon-petal roses glowed softly at night, absorbing starlight and releasing it as dreams for sleeping children across the world.</p>
                         <p>The whispering lilies carried messages between loved ones who were separated by distance or time, their petals rustling with unspoken words and unfelt emotions.</p>
                         <p>Memory-berries grew on bushes that changed color with each passing season, each berry containing a perfect moment preserved for those who needed to remember joy in dark times.</p>
-                        <p>The guardian taught Lily to tend these magical plants, showing her how tears of sadness could water the hope-flowers, making them bloom brighter than ever before.</p>
+                        <p>The guardian taught Lily to tend these magical plants, showing her how tears of sadness could water hope-flowers, making them bloom brighter than ever before.</p>
                         <span class="page-number">3</span>
                     </div>
                 </div>
@@ -261,7 +346,7 @@
                 <div class="page">
                     <div class="page-content page-left">
                         <p>Years passed, and Lily became a guardian herself, guiding other worthy souls to the garden while tending to its magical needs. She learned that keeping wonder alive was the most important work of all.</p>
-                        <p>The garden began to flourish once more, its magic spreading slowly back into the world through the dreams and hearts of those who learned to believe again.</p>
+                        <p>The garden began to flourish once more, its magic spreading slowly back into the world through dreams and the hearts of those who learned to believe again.</p>
                         <p>Children started seeing impossible butterflies again, adults found themselves noticing the extra sparkle in raindrops, and somewhere, just at the edge of vision, gates began to appear for those worthy to find them.</p>
                         <p>Lily understood that the hidden garden had never truly been lost – it had merely been waiting for enough hearts to remember that magic is real, waiting for someone to tend the seeds of wonder.</p>
                         <span class="page-number">5</span>
@@ -269,7 +354,7 @@
                 </div>
                 <div class="page">
                     <div class="page-content page-right">
-                        <p>The greatest lesson the garden taught was that magic isn't found in grand spells or miraculous events, but in the small moments: the way dew catches the morning light, the persistence of a flower growing through concrete, the courage to believe when others scoff.</p>
+                        <p>The greatest lesson the garden taught was that magic isn't found in grand spells or miraculous events, but in small moments: the way dew catches the morning light, the persistence of a flower growing through concrete, the courage to believe when others scoff.</p>
                         <p>Lily planted seeds of wonder everywhere she went, leaving trails of impossible butterflies and whispers of dreams that would one day bloom into gardens for others to find.</p>
                         <p>The garden expanded beyond its walls, becoming a network of magical spaces scattered across the world, each tended by those who had learned that believing in the impossible was the most practical thing one could do.</p>
                         <p>And somewhere, just beyond the edge of ordinary sight, a gate stands waiting, covered in ivy, with a silver key hanging nearby, ready for the next worthy heart to discover what has been there all along.</p>
@@ -297,8 +382,8 @@
             const isMobile = window.innerWidth <= 768;
 
             pageFlip = new PageFlip(bookElement, {
-                width: isMobile ? 400 : 900,
-                height: 600,
+                width: isMobile ? Math.min(window.innerWidth * 0.9, 400) : 900,
+                height: isMobile ? Math.min(window.innerHeight * 0.6, 500) : 600,
                 size: isMobile ? 'stretch' : 'fixed',
                 minWidth: 300,
                 maxWidth: 1200,

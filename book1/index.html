@@ -3,370 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Great Adventure - Digital Library</title>
-    <script type="module">
-        import { PageFlip } from "https://cdn.skypack.dev/page-flip@2.0.7";
-        window.PageFlip = PageFlip;
-    </script>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Georgia', serif;
-            background: linear-gradient(135deg, #2c1810 0%, #4a2c1a 100%);
-            min-height: 100vh;
-            color: #f4e4c1;
-            overflow-x: hidden;
-        }
-
-        header {
-            background: rgba(0, 0, 0, 0.3);
-            padding: 1rem;
-            text-align: center;
-            border-bottom: 2px solid #8b6914;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 100;
-        }
-
-        .book-title-header {
-            font-size: 1.5rem;
-            color: #f4e4c1;
-            margin-bottom: 0.5rem;
-        }
-
-        .book-author-header {
-            font-size: 1rem;
-            color: #d4af37;
-        }
-
-        main {
-            margin-top: 120px;
-            padding: 2rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: calc(100vh - 200px);
-        }
-
-        .book-container {
-            position: relative;
-            width: 100%;
-            max-width: 900px;
-            height: 600px;
-            margin: 0 auto;
-        }
-
-        .page {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to right, #f8f6f0 0%, #faf8f2 100%);
-            border: 1px solid #d4af37;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-            padding: 3rem 2rem;
-            color: #2c1810;
-            font-size: 18pt;
-            line-height: 1.6;
-        }
-
-        .page-content {
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            position: relative;
-        }
-
-        .page-number {
-            position: absolute;
-            bottom: 20px;
-            font-size: 14pt;
-            color: #8b6914;
-            font-style: italic;
-        }
-
-        .page-left .page-number {
-            left: 20px;
-        }
-
-        .page-right .page-number {
-            right: 20px;
-        }
-
-        .navigation {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 1rem;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 1rem;
-            border-radius: 50px;
-            border: 2px solid #d4af37;
-            z-index: 100;
-        }
-
-        .nav-btn {
-            background: #8b6914;
-            color: #f4e4c1;
-            border: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 16pt;
-            font-family: 'Georgia', serif;
-            transition: all 0.3s ease;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        .nav-btn:hover {
-            background: #d4af37;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
-        }
-
-        .nav-btn:disabled {
-            background: #555;
-            cursor: not-allowed;
-            opacity: 0.5;
-        }
-
-        .back-to-library {
-            background: #8b0000;
-        }
-
-        .back-to-library:hover {
-            background: #dc143c;
-        }
-
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            main {
-                margin-top: 100px;
-                padding: 1rem;
-            }
-
-            .book {
-                height: 500px;
-            }
-
-            .page {
-                width: 100%;
-                padding: 2rem 1.5rem;
-                font-size: 18pt;
-            }
-
-            .page-left {
-                display: none;
-            }
-
-            .page-right {
-                left: 0;
-                right: 0;
-                border-radius: 10px;
-                transform-origin: center;
-            }
-
-            .page-right.flipped-right {
-                transform: translateX(-100%) rotateY(180deg);
-            }
-
-            .page-right .page-number {
-                left: 50%;
-                transform: translateX(-50%);
-            }
-
-            .navigation {
-                bottom: 20px;
-                padding: 0.8rem;
-                gap: 0.5rem;
-            }
-
-            .nav-btn {
-                padding: 0.6rem 1rem;
-                font-size: 14pt;
-            }
-
-            .book-title-header {
-                font-size: 1.2rem;
-            }
-
-            .book-author-header {
-                font-size: 0.9rem;
-            }
-        }
-
-        /* Loading animation */
-        @keyframes pageFlip {
-            0% { transform: rotateY(0deg); }
-            100% { transform: rotateY(-180deg); }
-        }
-
-        .flipping {
-            animation: pageFlip 1s ease-in-out;
-        }
-    </style>
+    <title>The Story of Prophet Nuh</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1 class="book-title-header">The Great Adventure</h1>
-        <p class="book-author-header">by J. Smith</p>
-    </header>
-
-    <main>
-        <div class="book-container">
-            <div id="book" style="width: 100%; height: 100%;">
-                <div class="page">
-                    <div class="page-content page-left">
-                        <p>Once upon a time, in a land far beyond the mountains of mist, there lived a young adventurer named Alex who dreamed of discovering the lost treasures of the ancient world.</p>
-                        <p>The village elders spoke of a legendary map hidden deep within the Forest of Whispers, a place where few dared to venture and even fewer returned to tell their tales.</p>
-                        <p>With nothing but a small backpack, a compass handed down from generations, and an unwavering spirit of curiosity, Alex set forth at dawn's first light toward the mysterious forest.</p>
-                        <p>The journey would test not only physical strength but also the courage within, for the path ahead was fraught with challenges unknown and dangers unseen by mortal eyes.</p>
-                        <span class="page-number">1</span>
-                    </div>
-                </div>
-                <div class="page">
-                    <div class="page-content page-right">
-                        <p>As Alex entered the forest, the sunlight struggled to penetrate the thick canopy above, creating dancing shadows that seemed to whisper secrets of ages long past.</p>
-                        <p>Strange creatures watched from between ancient trees, their eyes glowing like stars in the dim light, neither threatening nor welcoming, merely observers of this brave soul's quest.</p>
-                        <p>The compass began to spin wildly, its needle pointing not north but toward something deeper, something magical that pulsed with an energy Alex could feel in their very bones.</p>
-                        <p>Three days into the journey, just as hope began to fade, a clearing appeared where an ancient stone pedestal stood, waiting patiently for the one destined to uncover its mysteries.</p>
-                        <span class="page-number">2</span>
-                    </div>
-                </div>
-                <div class="page">
-                    <div class="page-content page-left">
-                        <p>Upon the pedestal lay a map unlike any Alex had ever seen, its parchment glowing with a soft blue light and symbols that seemed to shift and change when viewed from different angles.</p>
-                        <p>As fingers touched the ancient surface, visions flooded Alex's mind – of temples lost to time, of treasures guarded by mystical beasts, and of a destiny that had been waiting centuries to unfold.</p>
-                        <p>The map revealed not one but seven hidden sanctuaries scattered across the realm, each containing a piece of the legendary Crown of Stars, said to grant its wearer the wisdom of the ancient ones.</p>
-                        <p>With the map safely secured and heart racing with excitement, Alex knew that this was no longer just a quest for treasure, but a journey that would change the course of history itself.</p>
-                        <span class="page-number">3</span>
-                    </div>
-                </div>
-                <div class="page">
-                    <div class="page-content page-right">
-                        <p>The first sanctuary lay deep within the Crystal Caves, where walls of transparent stone housed formations that had grown over millions of years, each containing trapped memories of the earth's ancient past.</p>
-                        <p>Here, Alex discovered not gold or jewels, but something far more valuable – the ability to communicate with the spirits of nature itself, who shared secrets of healing and protection that had been lost to humanity.</p>
-                        <p>A trial of courage awaited in the Chamber of Echoes, where Alex had to face their deepest fears manifested as shadowy figures, learning that true bravery comes not from the absence of fear, but from acting despite it.</p>
-                        <p>Emerging from the caves transformed, Alex carried with them the first star gem, now pulsing with a gentle light that seemed to guide the way forward.</p>
-                        <span class="page-number">4</span>
-                    </div>
-                </div>
-                <div class="page">
-                    <div class="page-content page-left">
-                        <p>The journey continued across the Desert of Mirages, where sands shifted to create illusions of cities that never existed and waters that vanished upon approach. Here, Alex learned the importance of looking beyond appearances.</p>
-                        <p>In an oasis hidden from mortal eyes, Alex found the second sanctuary, guarded by sphinxes who spoke not in riddles but in truths that cut to the very soul of whoever dared to listen.</p>
-                        <p>The trial here was one of wisdom – to choose not the path of easiest travel, but the one that would lead to greatest growth, even if it meant facing hardships that seemed insurmountable at first glance.</p>
-                        <p>With the second star gem now joined to the first, Alex could feel changes within – sharper senses, deeper understanding, and a connection to the ancient magic that flowed through all living things.</p>
-                        <span class="page-number">5</span>
-                    </div>
-                </div>
-                <div class="page">
-                    <div class="page-content page-right">
-                        <p>The Mountain of Eternal Storms loomed ahead, its peaks perpetually wreathed in lightning and thunder. Here, the third sanctuary awaited, accessible only through the Eye of the Storm itself.</p>
-                        <p>Alex learned from mountain monks who had lived here for generations, mastering the art of finding peace within chaos, of standing firm when everything around seemed to be falling apart.</p>
-                        <p>The trial was one of endurance – to climb the treacherous paths while the mountain threw everything it could against the intruder: winds that could tear flesh from bone, rains that could freeze a person solid, and lightning that sought to strike down all who dared ascend.</p>
-                        <p>At the summit, in the calm eye of the eternal storm, Alex found not just the third star gem, but also the realization that the greatest storms are often those within ourselves, and that mastering them is the key to mastering any external challenge.</p>
-                        <span class="page-number">6</span>
-                    </div>
+    <div class="container">
+        <div id="holidayList">
+            <div class="holiday-item front-cover" data-density="hard">
+                <div class="page-data">
+                    <h1>The Story of Prophet Nuh</h1>
+                    <p>A Child-Friendly Tale from Islam</p>
                 </div>
             </div>
+            <div class="holiday-item empty-page"></div>
+            <div class="holiday-item">
+                <div class="page-content">
+                    <div class="story-image"></div>
+                    <div class="story-text">Long ago, people forgot about Allah and worshipped idols made of stone and wood.</div>
+                </div>
+            </div>
+            <div class="holiday-item">
+                <div class="page-content">
+                    <div class="story-image"></div>
+                    <div class="story-text">Allah sent Prophet Nuh to guide them back to the right path.</div>
+                </div>
+            </div>
+            <div class="holiday-item">
+                <div class="page-content">
+                    <div class="story-image"></div>
+                    <div class="story-text">Nuh preached day and night, calling people to worship only Allah.</div>
+                </div>
+            </div>
+            <div class="holiday-item">
+                <div class="page-content">
+                    <div class="story-image"></div>
+                    <div class="story-text">But most people laughed and mocked him, refusing to listen.</div>
+                </div>
+            </div>
+            <div class="holiday-item">
+                <div class="page-content">
+                    <div class="story-image"></div>
+                    <div class="story-text">Nuh was patient and continued preaching for 950 years!</div>
+                </div>
+            </div>
+            <div class="holiday-item">
+                <div class="page-content">
+                    <div class="story-image"></div>
+                    <div class="story-text">Finally, Allah told Nuh to build a huge ark, even though it was far from water.</div>
+                </div>
+            </div>
+            <div class="holiday-item">
+                <div class="page-content">
+                    <div class="story-image"></div>
+                    <div class="story-text">People mocked him more, but Nuh followed Allah's command.</div>
+                </div>
+            </div>
+            <div class="holiday-item">
+                <div class="page-content">
+                    <div class="story-image"></div>
+                    <div class="story-text">When the ark was ready, animals came in pairs, and the believers boarded.</div>
+                </div>
+            </div>
+            <div class="holiday-item">
+                <div class="page-content">
+                    <div class="story-image"></div>
+                    <div class="story-text">Then, the skies opened, and water gushed from the earth - the great flood began.</div>
+                </div>
+            </div>
+            <div class="holiday-item">
+                <div class="page-content">
+                    <div class="story-image"></div>
+                    <div class="story-text">The waters rose, and those who didn't believe drowned.</div>
+                </div>
+            </div>
+            <div class="holiday-item">
+                <div class="page-content">
+                    <div class="story-image"></div>
+                    <div class="story-text">Even Nuh's son refused to board and was lost in the flood.</div>
+                </div>
+            </div>
+            <div class="holiday-item">
+                <div class="page-content">
+                    <div class="story-image"></div>
+                    <div class="story-text">When the flood ended, the ark rested on a mountain, and a rainbow appeared - a new beginning for the believers.</div>
+                </div>
+            </div>
+            <div class="holiday-item empty-page"></div>
+            <div class="holiday-item back-cover" data-density="hard">
+            </div>
         </div>
-    </main>
-
-    <nav class="navigation">
-        <button class="nav-btn" id="prevBtn" onclick="previousPage()">← Previous</button>
-        <button class="nav-btn back-to-library" onclick="backToLibrary()">📚 Library</button>
-        <button class="nav-btn" id="nextBtn" onclick="nextPage()">Next →</button>
+    </div>
+    <nav>
+        <button id="prev">Previous</button>
+        <button id="next">Next</button>
     </nav>
+    <aside id="notation">Flip the pages by clicking on the page or dragging from the edge or click the navigation buttons</aside>
 
-    <script type="module">
-        import { PageFlip } from "https://cdn.skypack.dev/page-flip@2.0.7";
-
-        let pageFlip;
-
-        // Initialize PageFlip when DOM is loaded
-        document.addEventListener('DOMContentLoaded', () => {
-            const bookElement = document.getElementById('book');
-            const isMobile = window.innerWidth <= 768;
-
-            pageFlip = new PageFlip(bookElement, {
-                width: isMobile ? 400 : 900,
-                height: 600,
-                size: isMobile ? 'stretch' : 'fixed',
-                minWidth: 300,
-                maxWidth: 1200,
-                minHeight: 400,
-                maxHeight: 800,
-                showCover: false,
-                mobileScrollSupport: true,
-                flipDuration: 800,
-                useMouseEvents: true
-            });
-
-            // Load pages
-            pageFlip.loadFromHTML(document.querySelectorAll('.page'));
-
-            // Update button states
-            updateButtonStates();
-
-            // Event listeners for page flip
-            pageFlip.on('flip', (e) => {
-                updateButtonStates();
-            });
-
-            // Handle window resize
-            window.addEventListener('resize', () => {
-                const newMobile = window.innerWidth <= 768;
-                if (newMobile !== isMobile) {
-                    location.reload(); // Reload to reinitialize with correct settings
-                }
-            });
-        });
-
-        function nextPage() {
-            if (pageFlip) {
-                pageFlip.flipNext();
-            }
-        }
-
-        function previousPage() {
-            if (pageFlip) {
-                pageFlip.flipPrev();
-            }
-        }
-
-        function backToLibrary() {
-            window.location.href = '../index.html';
-        }
-
-        function updateButtonStates() {
-            if (pageFlip) {
-                const pageCount = pageFlip.getPageCount();
-                const currentPageIndex = pageFlip.getCurrentPageIndex();
-
-                document.getElementById('prevBtn').disabled = currentPageIndex === 0;
-                document.getElementById('nextBtn').disabled = currentPageIndex >= pageCount - 1;
-            }
-        }
-
-        // Keyboard navigation
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight') nextPage();
-            if (e.key === 'ArrowLeft') previousPage();
-            if (e.key === 'Escape') backToLibrary();
-        });
-
-        // Make functions available globally for onclick handlers
-        window.nextPage = nextPage;
-        window.previousPage = previousPage;
-        window.backToLibrary = backToLibrary;
-    </script>
+    <script type="module" src="script.js"></script>
 </body>
 </html>
