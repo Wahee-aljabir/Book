@@ -8,7 +8,7 @@ body {
 	min-height: 100vh;
 	display: grid;
 	grid-template-rows: auto 1fr auto;
-	background: url("images/cover_body.jpg");
+	background: url("assets/images/cover_body.jpg");
 	background-repeat: no-repeat;
 	background-size: cover;
 }
@@ -109,10 +109,8 @@ nav button:hover:before {
 .page-data {
 	position: absolute;
 	inset: 0.1rem;
-	/* figure out why bottom is not working */
 	height: 100%;
-
-	background: url("images/cover_page.jpg");
+	background: url("assets/images/cover_page.jpg");
 	background-repeat: no-repeat;
 	background-size: cover;
 }
@@ -151,44 +149,44 @@ nav button:hover:before {
 	padding: 0.5rem;
 }
 .holiday-item:nth-of-type(3) .page-content .story-image {
-	background-image: url("images/page1.jpg");
+	background-image: url("assets/images/page1.jpg");
 }
 .holiday-item:nth-of-type(4) .page-content .story-image {
-	background-image: url("images/page2.jpg");
+	background-image: url("assets/images/page2.jpg");
 }
 .holiday-item:nth-of-type(5) .page-content .story-image {
-	background-image: url("images/page3.jpg");
+	background-image: url("assets/images/page3.jpg");
 }
 .holiday-item:nth-of-type(6) .page-content .story-image {
-	background-image: url("images/page4.jpg");
+	background-image: url("assets/images/page4.jpg");
 }
 .holiday-item:nth-of-type(7) .page-content .story-image {
-	background-image: url("images/page5.jpg");
+	background-image: url("assets/images/page5.jpg");
 }
 .holiday-item:nth-of-type(8) .page-content .story-image {
-	background-image: url("images/page6.jpg");
+	background-image: url("assets/images/page6.jpg");
 }
 .holiday-item:nth-of-type(9) .page-content .story-image {
-	background-image: url("images/page7.jpg");
+	background-image: url("assets/images/page7.jpg");
 }
 .holiday-item:nth-of-type(10) .page-content .story-image {
-	background-image: url("images/page8.jpg");
+	background-image: url("assets/images/page8.jpg");
 }
 .holiday-item:nth-of-type(11) .page-content .story-image {
-	background-image: url("images/page9.jpg");
+	background-image: url("assets/images/page9.jpg");
 }
 .holiday-item:nth-of-type(12) .page-content .story-image {
-	background-image: url("images/page10.jpg");
+	background-image: url("assets/images/page10.jpg");
 }
 .holiday-item:nth-of-type(13) .page-content .story-image {
-	background-image: url("images/page11.jpg");
+	background-image: url("assets/images/page11.jpg");
 }
 .holiday-item:nth-of-type(14) .page-content .story-image {
-	background-image: url("images/page12.jpg");
+	background-image: url("assets/images/page12.jpg");
 }
 .holiday-item:nth-of-type(15) .page-content .story-image {
-	background-image: url("images/page13.jpg");
+	background-image: url("assets/images/page13.jpg");
 }
 .holiday-item:nth-of-type(16) .page-content .story-image {
-	background-image: url("images/page14.jpg");
+	background-image: url("assets/images/page14.jpg");
 }
