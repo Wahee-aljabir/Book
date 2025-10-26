@@ -217,4 +217,159 @@ nav button:hover:before {
   background-image: url("assets/images/page14.jpg");
 }
 
+#readAloudIcon {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #fff;
+  transition: transform 0.2s ease;
+}
+#readAloudIcon:hover, #readAloudIcon:focus {
+  transform: scale(1.1);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
+}
+
+#readAloudBar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 9998;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  padding: 10px;
+  display: none;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  opacity: 0;
+  transform: translateY(100%);
+}
+#readAloudBar.visible {
+  display: flex;
+  opacity: 1;
+  transform: translateY(0);
+}
+#readAloudBar label {
+  font-size: 14px;
+  margin-right: 5px;
+}
+#readAloudBar select, #readAloudBar input[type=range] {
+  padding: 5px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+#readAloudBar select:focus, #readAloudBar input[type=range]:focus {
+  outline: none;
+  border-color: #4CAF50;
+}
+#readAloudBar input[type=range] {
+  width: 100px;
+}
+#readAloudBar button {
+  padding: 8px 12px;
+  border-radius: 4px;
+  background: #4CAF50;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+#readAloudBar button:hover, #readAloudBar button:focus {
+  background: #45a049;
+  outline: none;
+}
+#readAloudBar button[aria-label=Settings] {
+  background: transparent;
+  font-size: 20px;
+  padding: 0;
+}
+#readAloudBar > div {
+  position: absolute;
+  bottom: 50px;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 10px;
+  border-radius: 4px;
+  display: none;
+}
+#readAloudBar > div.open {
+  display: block;
+}
+
+.page-navigation {
+  z-index: 9997;
+}
+
+.page-content .story-text {
+  font-size: 1.2rem;
+  line-height: 1.5;
+  padding: 0.5rem;
+}
+
+.holiday-item:nth-of-type(3) .page-content .story-image {
+  background-image: url("assets/images/page1.jpg");
+}
+
+.holiday-item:nth-of-type(4) .page-content .story-image {
+  background-image: url("assets/images/page2.jpg");
+}
+
+.holiday-item:nth-of-type(5) .page-content .story-image {
+  background-image: url("assets/images/page3.jpg");
+}
+
+.holiday-item:nth-of-type(6) .page-content .story-image {
+  background-image: url("assets/images/page4.jpg");
+}
+
+.holiday-item:nth-of-type(7) .page-content .story-image {
+  background-image: url("assets/images/page5.jpg");
+}
+
+.holiday-item:nth-of-type(8) .page-content .story-image {
+  background-image: url("assets/images/page6.jpg");
+}
+
+.holiday-item:nth-of-type(9) .page-content .story-image {
+  background-image: url("assets/images/page7.jpg");
+}
+
+.holiday-item:nth-of-type(10) .page-content .story-image {
+  background-image: url("assets/images/page8.jpg");
+}
+
+.holiday-item:nth-of-type(11) .page-content .story-image {
+  background-image: url("assets/images/page9.jpg");
+}
+
+.holiday-item:nth-of-type(12) .page-content .story-image {
+  background-image: url("assets/images/page10.jpg");
+}
+
+.holiday-item:nth-of-type(13) .page-content .story-image {
+  background-image: url("assets/images/page11.jpg");
+}
+
+.holiday-item:nth-of-type(14) .page-content .story-image {
+  background-image: url("assets/images/page12.jpg");
+}
+
+.holiday-item:nth-of-type(15) .page-content .story-image {
+  background-image: url("assets/images/page13.jpg");
+}
+
+.holiday-item:nth-of-type(16) .page-content .story-image {
+  background-image: url("assets/images/page14.jpg");
+}
+
 /*# sourceMappingURL=style.css.map */
