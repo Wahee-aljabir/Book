@@ -194,7 +194,7 @@ class BookReader {
 // Library initialization function
 async function initLibrary() {
     try {
-        const response = await fetch('/api/books');
+        const response = await fetch('books.json');
         if (!response.ok) {
             throw new Error(`Failed to load book list: ${response.status} ${response.statusText}`);
         }
