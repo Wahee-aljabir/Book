@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Flipbook Reader</title>
+    <link rel="stylesheet" href="book.css">
+</head>
+<body>
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+        <p>Loading book...</p>
+    </div>
+    
+    <div class="error" id="error" style="display: none;">
+        <h2>Error Loading Book</h2>
+        <p id="error-message"></p>
+        <button onclick="location.reload()">Try Again</button>
+    </div>
+
+    <div class="container" id="container" style="display: none;">
+        <div id="bookPages">
+            <!-- Pages will be dynamically generated here -->
+        </div>
+    </div>
+
+    <nav id="navigation" style="display: none;">
+        <button id="prev">Previous</button>
+        <button id="next">Next</button>
+    </nav>
+
+    <aside id="notation" style="display: none;">
+        Flip the pages by clicking on the page or dragging from the edge or click the navigation buttons
+    </aside>
+
+    <script type="module" src="book.js"></script>
+</body>
+</html>
