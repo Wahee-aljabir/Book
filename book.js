@@ -17,6 +17,17 @@ class BookReader {
             await this.loadBookData(bookFile);
             this.renderBook();
             this.initializePageFlip();
+            
+            // Add resize listener to re-render book when orientation changes
+            window.addEventListener('resize', () => {
+                // Debounce resize events
+                clearTimeout(this.resizeTimeout);
+                this.resizeTimeout = setTimeout(() => {
+                    this.renderBook();
+                    this.initializePageFlip();
+                }, 300);
+            });
+            
             this.setupNavigation();
             this.hideLoading();
         } catch (error) {
@@ -50,6 +61,11 @@ class BookReader {
         const bookPages = document.getElementById('bookPages');
         bookPages.innerHTML = '';
 
+        // Check if we're in mobile mode and determine orientation
+        const isMobile = window.innerWidth <= 768;
+        const isMobilePortrait = isMobile && window.innerHeight > window.innerWidth;
+        const isMobileLandscape = isMobile && window.innerWidth >= window.innerHeight;
+
         // Create front cover
         const frontCover = this.createCoverPage(true);
         bookPages.appendChild(frontCover);
@@ -59,10 +75,34 @@ class BookReader {
         bookPages.appendChild(emptyPage1);
 
         // Create story pages
-        this.bookData.pages.forEach((page, index) => {
-            const pageElement = this.createStoryPage(page, index + 1);
-            bookPages.appendChild(pageElement);
-        });
+        if (isMobileLandscape) {
+            // For mobile landscape: create separate pages for images and text (one page image, one page text)
+            this.bookData.pages.forEach((page, index) => {
+                // Create image page (left page)
+                const imagePage = this.createImagePage(page, index + 1);
+                bookPages.appendChild(imagePage);
+                
+                // Create text page (right page)
+                const textPage = this.createTextPage(page, index + 1);
+                bookPages.appendChild(textPage);
+            });
+        } else if (isMobilePortrait) {
+            // For mobile portrait: use normal combined pages like desktop
+            this.bookData.pages.forEach((page, index) => {
+                const pageElement = this.createStoryPage(page, index + 1);
+                bookPages.appendChild(pageElement);
+            });
+        } else {
+            // For desktop: create combined pages
+            this.bookData.pages.forEach((page, index) => {
+                const pageElement = this.createStoryPage(page, index + 1);
+                bookPages.appendChild(pageElement);
+            });
+        }
+
+        // Add "End of Book" page
+        const endPage = this.createEndOfBookPage();
+        bookPages.appendChild(endPage);
 
         // Create empty page before back cover
         const emptyPage2 = this.createEmptyPage();
@@ -96,6 +136,51 @@ class BookReader {
             page.appendChild(coverContent);
         }
 
+        return page;
+    }
+
+    createImagePage(pageData, pageNumber) {
+        const page = document.createElement('div');
+        page.className = 'book-page mobile-image-page';
+
+        const pageContent = document.createElement('div');
+        pageContent.className = 'page-content';
+
+        // Create image element only
+        if (pageData.image) {
+            const img = document.createElement('img');
+            img.src = pageData.image;
+            img.alt = pageData.imageAlt || `Illustration for page ${pageNumber}`;
+            img.className = 'story-image';
+            
+            // Handle image load errors
+            img.onerror = () => {
+                img.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjBmMGYwIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vdCBmb3VuZDwvdGV4dD48L3N2Zz4=';
+            };
+            
+            pageContent.appendChild(img);
+        }
+
+        page.appendChild(pageContent);
+        return page;
+    }
+
+    createTextPage(pageData, pageNumber) {
+        const page = document.createElement('div');
+        page.className = 'book-page mobile-text-page';
+
+        const pageContent = document.createElement('div');
+        pageContent.className = 'page-content';
+
+        // Create text element only
+        if (pageData.text) {
+            const textDiv = document.createElement('div');
+            textDiv.className = 'story-text';
+            textDiv.textContent = pageData.text;
+            pageContent.appendChild(textDiv);
+        }
+
+        page.appendChild(pageContent);
         return page;
     }
 
@@ -139,17 +224,37 @@ class BookReader {
         return page;
     }
 
+    createEndOfBookPage() {
+        const page = document.createElement('div');
+        page.className = 'book-page end-of-book-page';
+        
+        const pageContent = document.createElement('div');
+        pageContent.className = 'page-content';
+        
+        const endMessage = document.createElement('div');
+        endMessage.className = 'end-message';
+        endMessage.innerHTML = '<h2>End of Book</h2><p>Thank you for reading!</p>';
+        
+        pageContent.appendChild(endMessage);
+        page.appendChild(pageContent);
+        
+        return page;
+    }
+
     initializePageFlip() {
         const bookPages = document.getElementById('bookPages');
         
+        // Check if we're in mobile mode (both portrait and landscape)
+        const isMobile = window.innerWidth <= 768;
+        
         this.pageFlip = new PageFlip(bookPages, {
-            width: 543,  // A4 ratio within 1024x768
-            height: 768,
+            width: isMobile ? 400 : 543,  // Smaller width for mobile
+            height: isMobile ? window.innerHeight : 768,  // Use full viewport height for mobile
             size: "stretch",
-            minWidth: 315,
-            maxWidth: 1000,
-            minHeight: 420,
-            maxHeight: 1350,
+            minWidth: isMobile ? 300 : 315,
+            maxWidth: isMobile ? 500 : 1000,
+            minHeight: isMobile ? window.innerHeight : 420,  // Use full viewport height for mobile
+            maxHeight: isMobile ? window.innerHeight : 1350,
             maxShadowOpacity: 0.5,
             showCover: true,
             mobileScrollSupport: false

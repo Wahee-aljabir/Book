@@ -20,6 +20,7 @@
   "description": "",
   "dependencies": {
     "express": "^5.1.0",
-    "puppeteer": "^24.26.1"
+    "puppeteer": "^24.26.1",
+    "surge": "^0.24.6"
   }
 }
