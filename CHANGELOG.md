@@ -2,6 +2,10 @@
 
 Generated on 2025-10-29
 
+## 2025-10-29
+
+- feat(changelog): add changelog generation and pdf conversion scripts (b590dfa) [view](https://github.com/Wahee-aljabir/Book/commit/b590dfaab3a2f3d26c4695b28545880b8df8f374)
+
 ## 2025-10-28
 
 - feat(responsive): enhance mobile reading experience with responsive layouts (81daf89) [view](https://github.com/Wahee-aljabir/Book/commit/81daf89e3cd483dc2cd0a7fab4c0eee2cba65a3d)
@@ -22,3 +26,8 @@ Generated on 2025-10-29
 ## 2025-10-25
 
 - feat(book1): add interactive storybook with page-flip animation (87a0d07) [view](https://github.com/Wahee-aljabir/Book/commit/87a0d071038704a1d8cecd401f0526e2cfcb903e)
+
+## 2025-10-24
+
+- first commit (3f9e27a) [view](https://github.com/Wahee-aljabir/Book/commit/3f9e27ae69f072cea7f465551c94d3611fa213c2)
+
