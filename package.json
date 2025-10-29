@@ -1,10 +1,13 @@
 {
   "name": "book",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "python -m http.server 3000"
+    "dev": "python -m http.server 3000",
+    "changelog": "node scripts/generate-changelog.js",
+    "changelog:pdf": "npx --yes md-to-pdf CHANGELOG.md --output CHANGELOG.pdf",
+    "changelog:pdf:puppeteer": "node scripts/changelog-to-pdf.js"
   },
   "repository": {
     "type": "git",
