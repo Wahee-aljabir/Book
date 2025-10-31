@@ -61,11 +61,6 @@ class BookReader {
         const bookPages = document.getElementById('bookPages');
         bookPages.innerHTML = '';
 
-        // Check if we're in mobile mode and determine orientation
-        const isMobile = window.innerWidth <= 768;
-        const isMobilePortrait = isMobile && window.innerHeight > window.innerWidth;
-        const isMobileLandscape = isMobile && window.innerWidth >= window.innerHeight;
-
         // Create front cover
         const frontCover = this.createCoverPage(true);
         bookPages.appendChild(frontCover);
@@ -74,33 +69,21 @@ class BookReader {
         const emptyPage1 = this.createEmptyPage();
         bookPages.appendChild(emptyPage1);
 
-        // Create story pages
-        if (isMobileLandscape) {
-            // For mobile landscape: create separate pages for images and text (one page image, one page text)
-            this.bookData.pages.forEach((page, index) => {
-                // Create image page (left page)
-                const imagePage = this.createImagePage(page, index + 1);
-                bookPages.appendChild(imagePage);
-                
-                // Create text page (right page)
-                const textPage = this.createTextPage(page, index + 1);
-                bookPages.appendChild(textPage);
-            });
-        } else if (isMobilePortrait) {
-            // For mobile portrait: use normal combined pages like desktop
-            this.bookData.pages.forEach((page, index) => {
-                const pageElement = this.createStoryPage(page, index + 1);
-                bookPages.appendChild(pageElement);
-            });
-        } else {
-            // For desktop: create combined pages
-            this.bookData.pages.forEach((page, index) => {
-                const pageElement = this.createStoryPage(page, index + 1);
-                bookPages.appendChild(pageElement);
-            });
-        }
+        // Create story pages - always separate image (left) and text (right) pages
+        this.bookData.pages.forEach((page, index) => {
+            const pageNumber = index * 2 + 1; // Keep numbering correct
 
-        // Add "End of Book" page
+            // Left: Image page
+            const imagePage = this.createImagePage(page, pageNumber);
+            imagePage.classList.add("--left");
+            bookPages.appendChild(imagePage);
+
+            // Right: Text page
+            const textPage = this.createTextPage(page, pageNumber + 1);
+            textPage.classList.add("--right");
+            bookPages.appendChild(textPage);
+        });
+
         const endPage = this.createEndOfBookPage();
         bookPages.appendChild(endPage);
 
@@ -141,10 +124,10 @@ class BookReader {
 
     createImagePage(pageData, pageNumber) {
         const page = document.createElement('div');
-        page.className = 'book-page mobile-image-page';
+        page.className = 'book-page';
 
         const pageContent = document.createElement('div');
-        pageContent.className = 'page-content';
+        pageContent.className = 'page-content image-page';
 
         // Create image element only
         if (pageData.image) {
@@ -167,10 +150,10 @@ class BookReader {
 
     createTextPage(pageData, pageNumber) {
         const page = document.createElement('div');
-        page.className = 'book-page mobile-text-page';
+        page.className = 'book-page';
 
         const pageContent = document.createElement('div');
-        pageContent.className = 'page-content';
+        pageContent.className = 'page-content text-page';
 
         // Create text element only
         if (pageData.text) {

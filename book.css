@@ -173,6 +173,26 @@ nav button:hover:before {
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.5);
 }
 
+.page-left {
+    direction: rtl; /* Forces it to be treated as left page */
+}
+
+.page-right {
+    direction: ltr; /* Forces it to be treated as right page */
+}
+
+.mobile-image-page img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.mobile-text-page .story-text {
+    font-size: 1.1rem;
+    padding: 1rem;
+    line-height: 1.4;
+}
+
 .book-page.--left {
     border-right: 0;
     box-shadow: inset -7px 0 30px -7px rgba(0, 0, 0, 0.4);
@@ -228,20 +248,36 @@ nav button:hover:before {
 
 /* Story Page Content */
 .page-content {
-    padding: 1rem;
-    display: grid;
-    grid-template-rows: 1fr 1fr;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
     height: 100%;
-    text-align: center;
-    gap: 0.5rem;
+    gap: 0;
+}
+
+/* Image page specific styles */
+.page-content.image-page {
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}
+
+/* Text page specific styles */
+.page-content.text-page {
+    justify-content: flex-start;
+    align-items: center;
+    padding: 2rem 1.5rem;
+    text-align: left;
 }
 
 .story-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin: 0;
 }
 
 .story-text {
