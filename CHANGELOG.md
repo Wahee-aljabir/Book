@@ -4,6 +4,7 @@ Generated on 2025-10-29
 
 ## 2025-10-29
 
+- docs: add summary of changes and update changelog (a31663a) [view](https://github.com/Wahee-aljabir/Book/commit/a31663af7f67f20ff973ebb56283db7904fd8f7e)
 - feat(changelog): add changelog generation and pdf conversion scripts (b590dfa) [view](https://github.com/Wahee-aljabir/Book/commit/b590dfaab3a2f3d26c4695b28545880b8df8f374)
 
 ## 2025-10-28

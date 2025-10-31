@@ -1,0 +1,1 @@
+Remind me at the end of each reply from you say 'do you want me to update the changelog?'

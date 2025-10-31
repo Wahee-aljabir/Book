@@ -2,6 +2,26 @@
 
 This document summarizes the key changes and improvements made to the project during our recent collaboration.
 
+## Font Size Standardization and Mobile Layout Improvements (January 2025)
+
+**Font Size Standardization:**
+- Standardized all text elements to use 16pt font size for improved readability across all devices
+- Updated `.story-text` font size from `1.2rem` to `16pt` for desktop and mobile portrait views
+- Updated `.mobile-text-page .story-text` font size from `18pt` to `16pt` for mobile landscape views
+- Adjusted line-height values for optimal text spacing (1.5 for general text, 1.55 for mobile landscape)
+
+**Mobile Landscape Layout Fixes:**
+- Resolved conflicting media queries that were overriding the intended mobile landscape layout
+- Removed duplicate landscape media query that was causing single-column layout instead of two-column
+- Ensured proper two-column layout in mobile landscape mode (50% image, 50% text)
+- Optimized mobile landscape text display with improved max-width (90%) and max-height (85%)
+- Fixed CSS caching issues by restarting development server to ensure changes are visible
+
+**Technical Details:**
+- Removed conflicting `@media (orientation: landscape) and (max-width: 1024px)` media query
+- Maintained the correct `@media (orientation: landscape) and (max-width: 768px)` media query for proper mobile landscape behavior
+- Ensured images continue to use `object-fit: contain` to prevent cropping in landscape view
+
 ## Mobile Landscape Layout Fix
 
 Initially, the book's mobile landscape view in Chrome displayed image and text pages side-by-side, each occupying 50% of the viewport width. This was contrary to the desired behavior of having each page (image or text) occupy the full viewport width individually.
